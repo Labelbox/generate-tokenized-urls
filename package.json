@@ -1,0 +1,26 @@
+{
+  "name": "jsonConverter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexPattison/jsonConverter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexPattison/jsonConverter/issues"
+  },
+  "homepage": "https://github.com/AlexPattison/jsonConverter#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "aws-sdk": "^2.396.0",
+    "jsonwebtoken": "^8.4.0",
+    "yargs": "^12.0.5"
+  }
+}
