@@ -22,7 +22,12 @@ const args = require("yargs")
     alias: "o",
     describe: "Filepath to output result"
   })
-  .demandOption(["bucket", "host", "secret", "output"])
+  .option("prefix", {
+    alias: "p",
+    describe: "Key prefix of files in the bucket to generate URLs",
+    default: ""
+  })
+  .demandOption(["bucket", "host", "secret", "output", "prefix"])
   .help().argv;
 
 const mapToUrl = ({ key, bucket, externalId }) => {
@@ -33,9 +38,10 @@ const mapToUrl = ({ key, bucket, externalId }) => {
   return { externalId, imageUrl: `${args.host}?token=${encoded}` };
 };
 
-const generateKeyBucketPairs = async bucket => {
+const generateKeyBucketPairs = async (bucket, prefix) => {
   const params = {
-    Bucket: bucket
+    Bucket: bucket,
+    Prefix: prefix
   };
   let content = [];
   const gatherUrlsFromBucket = new Promise((resolve, reject) => {
@@ -65,7 +71,7 @@ const generateKeyBucketPairs = async bucket => {
 };
 
 const writeToOutput = async () => {
-  const json = await generateKeyBucketPairs(args.bucket);
+  const json = await generateKeyBucketPairs(args.bucket, args.prefix);
 
   fs.writeFile(args.output, JSON.stringify(json), err => {
     if (err) {
